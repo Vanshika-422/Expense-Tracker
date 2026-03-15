@@ -53,7 +53,8 @@ public class ExpenseTrackerGUI extends JFrame {
 
     private JLabel createStatCard(String title, String value) {
         JLabel label = new JLabel("<html><div style='text-align: center; padding:10px; border:1px solid gray; border-radius:5px;'>" 
-                                  + "<b style='font-size:12px;'>" + title + "</b><br><span style='font-size:16px; color:blue;'>" + value + "</span></div></html>");
+                                  + "<b style='font-size:12px;'>" + title + "</b><br><span style='font-size:16px; color:blue;'>" 
+                                  + value + "</span></div></html>");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
     }
