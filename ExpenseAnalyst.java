@@ -1,54 +1,54 @@
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class ExpenseAnalyst {
 
-    // 1. CALCULATE TOTAL SPENT (Excludes upcoming bills)
-    public double calculateTotalSpent(List<Expense> list) {
-        double total = 0;
-        for (Expense e : list) {
-            if (!e.isBill()) { 
-                total += e.getAmount();
-            }
-        }
-        return total;
+    public List<Expense> getPendingBills(List<Expense> expenses) {
+        return expenses.stream()
+                .filter(e -> !e.isPaid())
+                .sorted((e1, e2) -> e1.getDueDate().compareTo(e2.getDueDate()))
+                .collect(Collectors.toList());
     }
 
-    // 2. CATEGORY WISE TOTAL
-    public double getCategoryTotal(List<Expense> list, String categoryName) {
-        double catTotal = 0;
-        for (Expense e : list) {
-            if (e.getCategory().equalsIgnoreCase(categoryName)) {
-                catTotal += e.getAmount();
-            }
+    public String generateFinancialAdvice(List<Expense> expenses) {
+        long smallPaymentsCount = expenses.stream()
+                .filter(e -> e.getAmount() < 500 && e.isPaid())
+                .count();
+
+        double totalUnnecessary = expenses.stream()
+                .filter(e -> e.getCategory().equalsIgnoreCase("Entertainment")
+                        || e.getCategory().equalsIgnoreCase("Shopping"))
+                .mapToDouble(Expense::getAmount)
+                .sum();
+
+        StringBuilder advice = new StringBuilder();
+
+        if (smallPaymentsCount > 3) {
+            advice.append("⚠️ Tip: You have ").append(smallPaymentsCount)
+                    .append(" small payments. These 'micro-transactions' add up quickly! ");
         }
-        return catTotal;
+
+        if (totalUnnecessary > 2000) {
+            advice.append("💡 Consider reducing your Shopping/Entertainment budget. You've spent ₹")
+                    .append(totalUnnecessary).append(" here recently.");
+        }
+
+        if (advice.length() == 0) {
+            return "✅ Your spending looks highly optimized. Great job!";
+        }
+
+        return advice.toString();
     }
 
-    // 3. CALENDAR SEARCH (Finds what is due/paid on a specific date)
-    public void showPaymentsForDate(List<Expense> list, String targetDate) {
-        System.out.println("\n--- Payments for " + targetDate + " ---");
-        boolean found = false;
-        for (Expense e : list) {
-            if (e.getDate().equals(targetDate)) {
-                String status = e.isBill() ? "[PENDING BILL]" : "[PAID]";
-                System.out.println("- " + e.getTitle() + ": ₹" + e.getAmount() + " " + status);
-                found = true;
+    public Map<String, Double> getCategoryBreakdown(List<Expense> expenses) {
+        Map<String, Double> breakdown = new HashMap<>();
+        for (Expense e : expenses) {
+            if (e.isPaid()) {
+                breakdown.put(e.getCategory(), breakdown.getOrDefault(e.getCategory(), 0.0) + e.getAmount());
             }
         }
-        if (!found) {
-            System.out.println("Nothing found for this date.");
-        }
-    }
-
-    // 4. HIGHEST EXPENSE ke liye ek method 
-    public void showHighestExpense(List<Expense> list) {
-        if (list.isEmpty()) return;
-        Expense highest = list.get(0);
-        for (Expense e : list) {
-            if (e.getAmount() > highest.getAmount()) {
-                highest = e;
-            }
-        }
-        System.out.println("Highest Expense: ₹" + highest.getAmount() + " (" + highest.getTitle() + ")");
+        return breakdown;
     }
 }

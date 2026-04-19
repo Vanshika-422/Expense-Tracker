@@ -1,5 +1,12 @@
-Pizza,2500.0,Food,2026-03-12,false
-Birthday Party,3000.0,Food,2026-03-12,false
-Regular checkup,1000.0,Food,2026-03-03,false
-Electricity,7800.0,Bills,2026-03-12,true
-Fees,1200.0,Other,2026-03-12,true
+1a2b3c4d,Groceries,4500.0,Food,2026-04-10,true
+2b3c4d5e,Gas Station,1200.0,Transport,2026-04-12,true
+3c4d5e6f,Electricity Bill,2800.0,Utilities,2026-04-15,true
+4d5e6f7g,Movie Tickets,850.0,Entertainment,2026-04-18,true
+5e6f7g8h,New Shoes,3500.0,Shopping,2026-04-20,false
+6f7g8h9i,Gym Membership,1500.0,Other,2026-04-22,false
+7g8h9i0j,Restaurant Dinner,2200.0,Food,2026-04-25,false
+8h9i0j1k,Uber Ride,450.0,Transport,2026-04-26,false
+9i0j1k2l,Internet Bill,1200.0,Utilities,2026-04-28,false
+0j1k2l3m,Concert Tickets,5000.0,Entertainment,2026-05-02,false
+1k2l3m4n,Jacket,4500.0,Shopping,2026-05-05,false
+2l3m4n5o,Software License,2000.0,Other,2026-05-10,false

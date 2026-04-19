@@ -1,42 +1,44 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandler {
     private static final String FILE_NAME = "expenses.txt";
 
-    public static void saveToFile(List<Expense> expenses) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
+    public static void saveExpenses(List<Expense> expenses) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Expense e : expenses) {
-                writer.println(e.toString());
+                bw.write(e.getId() + "," + e.getTitle() + "," + e.getAmount() + "," +
+                        e.getCategory() + "," + e.getDueDate() + "," + e.isPaid());
+                bw.newLine();
             }
-        } catch (IOException e) {
-            System.out.println("Error saving file: " + e.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Error saving file: " + ex.getMessage());
         }
     }
 
-    public static List<Expense> loadFromFile() {
-        List<Expense> loadedExpenses = new ArrayList<>();
+    public static List<Expense> loadExpenses() {
+        List<Expense> expenses = new ArrayList<>();
         File file = new File(FILE_NAME);
-        
-        if (!file.exists()) return loadedExpenses;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        if (!file.exists())
+            return expenses;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 5) {
-                    String title = parts[0];
-                    double amount = Double.parseDouble(parts[1]);
-                    String category = parts[2];
-                    String date = parts[3];
-                    boolean isBill = Boolean.parseBoolean(parts[4]);
-                    loadedExpenses.add(new Expense(title, amount, category, date, isBill));
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 6) {
+                    Expense e = new Expense(
+                            data[0], data[1], Double.parseDouble(data[2]),
+                            data[3], LocalDate.parse(data[4]), Boolean.parseBoolean(data[5]));
+                    expenses.add(e);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Error loading file: " + e.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error loading file: " + ex.getMessage());
         }
-        return loadedExpenses;
+        return expenses;
     }
 }

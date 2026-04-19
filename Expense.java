@@ -1,26 +1,63 @@
+import java.time.LocalDate;
+
 public class Expense {
+    private String id;
     private String title;
     private double amount;
     private String category;
-    private String date; 
-    private boolean isBill;
+    private LocalDate dueDate;
+    private boolean isPaid;
 
-    public Expense(String title, double amount, String category, String date, boolean isBill) {
+    public Expense(String id, String title, double amount, String category, LocalDate dueDate, boolean isPaid) {
+        this.id = id;
         this.title = title;
         this.amount = amount;
         this.category = category;
-        this.date = date;
-        this.isBill = isBill;
+        this.dueDate = dueDate;
+        this.isPaid = isPaid;
     }
 
-    public String getTitle() { return title; }
-    public double getAmount() { return amount; }
-    public String getCategory() { return category; }
-    public String getDate() { return date; }
-    public boolean isBill() { return isBill; }
+    public String getId() {
+        return id;
+    }
 
-    @Override
-    public String toString() {
-        return title + "," + amount + "," + category + "," + date + "," + isBill;
+    public String getTitle() {
+        return title;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }
