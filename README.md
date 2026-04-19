@@ -6,7 +6,7 @@
   [![Swing](https://img.shields.io/badge/Java_Swing-007396?style=for-the-badge&logo=java&logoColor=white)](https://docs.oracle.com/javase/tutorial/uiswing/)
   [![Open Source](https://img.shields.io/badge/Open_Source-4CAF50?style=for-the-badge&logo=open-source-initiative&logoColor=white)](#)
 
-  **Developed by:** Vanshika & Muskaan  |  **Batch:** 40  |  **Evaluation Date:** March 16, 2026
+  **Developed by:** Vanshika & Muskaan  |  **Batch:** 40  |  **Evaluation Date:** April 20, 2026
 </div>
 
 ---
